@@ -1,0 +1,34 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.Message>
+
+@{
+    ViewData["Title"] = "MessageList";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Gönderici</th>
+            <th>Email</th>
+            <th>Konu</th>
+            <th>Tarih</th>
+            <th>Mesajı Aç</th>
+            <th>Sil</th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>@item.MessageID</th>
+                <th>@item.NameSurname</th>
+                <th>@item.Email</th>
+                <th>@item.Subject</th>
+                <th>@item.SendDate.ToString("dd.MMM.yyyy")</th>
+                <th><a class="btn btn-primary" href="~/Admin/Message/MessageDetail/@item.MessageID">Mesaj Aç</a></th>
+                <th><a class="btn btn-danger" href="~/Admin/Message/DeleteMessage/@item.MessageID">Sil</a></th>
+            </tr>
+        }
+      
+    </table>
+</div>

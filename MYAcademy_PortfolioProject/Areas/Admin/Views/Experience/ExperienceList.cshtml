@@ -1,0 +1,35 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.Experience>
+@{
+    ViewData["Title"] = "ExperienceList";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Başlık</th>
+            <th>Alt Başlık</th>
+            <th>Tarih</th>
+            <th>Durum</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.ExperienceID</td>
+                <td>@item.Title</td>
+                <td>@item.SideTitle</td>
+                <td>@item.Duration</td>
+                <td>@item.IsActive</td>
+                <td>
+                    <a class="btn btn-danger" href="/Admin/Experience/DeleteExperience/@item.ExperienceID">Sil</a>
+                </td>
+                <td><a class="btn btn-success" href="/Admin/Experience/UpdateExperience/@item.ExperienceID">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+</div>
