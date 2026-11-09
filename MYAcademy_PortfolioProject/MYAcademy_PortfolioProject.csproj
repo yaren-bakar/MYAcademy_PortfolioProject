@@ -25,6 +25,7 @@
     <Folder Include="ViewComponents\AdminViewComponents\" />
     <Folder Include="ViewComponents\StaticsViewComponents\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\screenshots\" />
   </ItemGroup>
 
 </Project>
