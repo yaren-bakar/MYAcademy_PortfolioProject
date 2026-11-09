@@ -1,0 +1,31 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.Certificate>
+<section id="certificates">
+    <div class="container">
+        <div class="text-center mb-5 reveal-on-scroll">
+            <span class="section-eyebrow">SÜREKLİ ÖĞRENME</span>
+            <h2 class="section-title">Sertifikalarım</h2>
+            <p class="section-subtitle">Teknik becerilerimi geliştirmek için tamamladığım eğitimler.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-6 reveal-on-scroll">
+                    <div class="certificate-card">
+                    <div class="float-icon-box bg-icon-purple mb-3">
+                        <i class="bi bi-patch-check"></i>
+                    </div>
+                        <span class="badge bg-light text-secondary border rounded-pill px-2 py-1 mb-2 align-self-start small">
+                            @DateTime.Parse(item.CertificateDate).ToString("yyyy")
+
+                        </span>
+                    <h4 class="fs-6 fw-bold mb-1">@item.Title</h4>
+                    <div class="text-secondary small mb-3">@item.Institution</div>
+                    <div class="mt-auto">@item.Description
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

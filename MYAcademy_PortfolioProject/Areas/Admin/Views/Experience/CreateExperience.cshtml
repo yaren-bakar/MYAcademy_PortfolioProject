@@ -1,32 +1,103 @@
-﻿@model  MYAcademy_PortfolioProject.Entities.Experience
+﻿@model MYAcademy_PortfolioProject.Entities.Experience
 
 @{
-    ViewData["Title"] = "CreateExperience";
-    Layout = null;
-
+    ViewData["Title"] = "Deneyim Ekle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
+
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-<form method="post">
-<div class="container">
-    <br />
-    <label>Başlık</label>
-    <input  type="text" asp-for="Title" class="form-control"/>
-    <br />
-    <label>Şirket Adı</label>
-    <input type="text" asp-for="CompanyName" class="form-control" />
-    <br />
-    <label> Açıklama</label>
-    <input type="text" asp-for="Description" class="form-control" />
-    <br />
-    <label>Başlık</label>
-    <input type="text" asp-for="SideTitle" class="form-control" />
-    <br />
-    <label>Çalışma Zamanı</label>
-    <input type="text" asp-for="Duration" class="form-control" /> 
-    <br />
-    <label>Çalışma Türü</label>
-    <input type="text" asp-for="WorkType" class="form-control" />
-    <br />
-    <button class="btn btn-info">Deneyimi Kaydet</button>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white p-4">
+                    <h4 class="fw-bold mb-1">Yeni Deneyim Ekle</h4>
+                    <p class="text-muted mb-0">
+                        Deneyim bilgilerinizi aşağıdaki formdan ekleyebilirsiniz.
+                    </p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        <div class="row g-4">
+
+                            <!-- Başlık -->
+                            <div class="col-md-6">
+                                <label asp-for="Title" class="form-label fw-semibold">
+                                    Başlık
+                                </label>
+                                <input type="text" asp-for="Title" class="form-control" />
+                            </div>
+
+                            <!-- Şirket Adı -->
+                            <div class="col-md-6">
+                                <label asp-for="CompanyName" class="form-label fw-semibold">
+                                    Şirket Adı
+                                </label>
+                                <input type="text" asp-for="CompanyName" class="form-control" />
+                            </div>
+
+                            <!-- Alt Başlık -->
+                            <div class="col-md-6">
+                                <label asp-for="SideTitle" class="form-label fw-semibold">
+                                    Alt Başlık
+                                </label>
+                                <input type="text" asp-for="SideTitle" class="form-control" />
+                            </div>
+
+                            <!-- Çalışma Zamanı -->
+                            <div class="col-md-6">
+                                <label asp-for="Duration" class="form-label fw-semibold">
+                                    Çalışma Zamanı
+                                </label>
+                                <input type="text" asp-for="Duration" class="form-control" />
+                            </div>
+
+                            <!-- Çalışma Türü -->
+                            <div class="col-12">
+                                <label asp-for="WorkType" class="form-label fw-semibold">
+                                    Çalışma Türü
+                                </label>
+                                <input type="text" asp-for="WorkType" class="form-control" />
+                            </div>
+
+                            <!-- Açıklama -->
+                            <div class="col-12">
+                                <label asp-for="Description" class="form-label fw-semibold">
+                                    Açıklama
+                                </label>
+                                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a href="/Admin/Experience/ExperienceList" class="btn btn-outline-secondary">
+                                Vazgeç
+                            </a>
+
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-plus-circle me-1"></i>
+                                Deneyimi Kaydet
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
-</form>

@@ -1,0 +1,41 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.SkillCategory>
+
+<section id="skills" style="background-color: var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center mb-5 reveal-on-scroll">
+            <span class="section-eyebrow">TEKNİK YETKİNLİKLER</span>
+            <h2 class="section-title">Yeteneklerim</h2>
+            <p class="section-subtitle">Fikirleri çalışan yazılımlara dönüştürürken kullandığım teknolojiler.</p>
+        </div>
+
+        <div class="row g-3">
+            @foreach (var category in Model)
+            {
+                <div class="col-lg-4 col-md-6 reveal-on-scroll">
+                    <div class="skill-group-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="float-icon-box bg-icon-purple">
+                                <i class="bi bi-hdd-network"></i>
+                            </div>
+                            <h4 class="fs-5 fw-bold mb-0">@category.CategoryName</h4>
+                        </div>
+
+                        <p class="text-secondary small mb-3">@category.Description</p>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            @if (category.Skills != null)
+                            {
+                                @foreach (var skill in category.Skills)
+                                {
+                                    <span class="skill-chip">
+                                        <i class="bi bi-check text-success"></i> @skill.SkillName
+                                    </span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

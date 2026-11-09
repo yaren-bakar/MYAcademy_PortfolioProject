@@ -1,0 +1,47 @@
+﻿@model MYAcademy_PortfolioProject.Entities.Skill
+
+@{
+    ViewData["Title"] = "Yeteneği Düzenle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Yetenek & Teknoloji Yönetimi</h3>
+    </div>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-bold mb-0 text-primary">
+                <i class="bi bi-pencil-square me-1">Yeteneği Düzenle</i>
+            </h5>
+        </div>
+        <div class="card-body">
+
+            <form  method="post">
+                <input type="hidden" asp-for="SkillID" />
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">Yetenek / Teknoloji Adı</label>
+                        <input asp-for="SkillName" class="form-control" placeholder="Örn: ASP.NET Core, React, Docker" required />
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold">Bağlı Olduğu Kategori</label>
+                        <select asp-for="SkillCategoryID" asp-items="ViewBag.CategoryList" class="form-select" required>
+                            <option value="">-- Kategori Seçiniz --</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="bi bi-check-lg"></i> Güncelle
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

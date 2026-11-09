@@ -1,0 +1,148 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.SocialMedia>
+
+@{
+    ViewData["Title"] = "Sosyal Medya Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Sosyal Medya Yönetimi</h3>
+            <p class="text-muted mb-0">
+                Sosyal medya hesaplarınızı buradan yönetebilirsiniz.
+            </p>
+        </div>
+
+        <a href="/Admin/SocialMedia/CreateSocialMedia"
+           class="btn btn-success">
+            <i class="fas fa-plus me-2"></i> Yeni Hesap Ekle
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-bold mb-0">Sosyal Medya Hesaplarım</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Platform</th>
+                            <th>Bağlantı</th>
+                            <th>İkon</th>
+                            <th>Durum</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.SocialMediaID</td>
+
+                                <td class="fw-semibold">
+                                    @item.PlatformName
+                                </td>
+
+                                <td>
+                                    <a href="@item.Url" target="_blank">
+                                        Profili Gör
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <i class="@item.Icon fa-lg"></i>
+                                    <small class="text-muted">@item.Icon</small>
+                                </td>
+
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Pasif</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <a href="/Admin/SocialMedia/UpdateSocialMedia/@item.SocialMediaID"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Güncelle
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-@item.SocialMediaID">
+                                        <i class="bi bi-trash"></i> Sil
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            @foreach (var item in Model)
+            {
+                <div class="modal fade"
+                     id="deleteModal-@item.SocialMediaID"
+                     tabindex="-1">
+
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Silme Onayı</h5>
+                                <button type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal">
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                @item.PlatformName hesabını silmek istediğinize emin misiniz?
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">
+                                    Vazgeç
+                                </button>
+
+                                <a href="/Admin/SocialMedia/DeleteSocialMedia/@item.SocialMediaID"
+                                   class="btn btn-danger">
+                                    Evet, Sil
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="text-center py-4 text-muted">
+                    Henüz sosyal medya hesabı eklenmemiş.
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

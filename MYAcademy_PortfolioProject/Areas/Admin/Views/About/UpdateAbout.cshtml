@@ -1,0 +1,150 @@
+﻿@model MYAcademy_PortfolioProject.Entities.About
+
+@{
+    ViewData["Title"] = "Hakkımda Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="form-card">
+
+    <form asp-area="Admin" asp-controller="About" asp-action="UpdateAbout" method="post">
+
+        <input type="hidden" asp-for="AboutID" />
+
+        <div class="form-card-header">
+            <div class="form-card-icon">
+                <i class="bi bi-person-lines-fill"></i>
+            </div>
+
+            <div>
+                <h5 class="mb-0 fw-bold">Hakkımda Bilgilerini Güncelle</h5>
+                <small class="text-secondary">
+                    Kişisel bilgilerinizi düzenleyip kaydedebilirsiniz.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-card-body">
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="NameSurname" class="form-label">
+                        Ad Soyad <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-person"></i>
+                        <input asp-for="NameSurname" class="form-control" />
+                    </div>
+
+                    <span asp-validation-for="NameSurname" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="JobTitle" class="form-label">
+                        Meslek <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-briefcase"></i>
+                        <input asp-for="JobTitle" class="form-control" />
+                    </div>
+
+                    <span asp-validation-for="JobTitle" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Location" class="form-label">
+                        Konum <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-geo-alt"></i>
+                        <input asp-for="Location" class="form-control" />
+                    </div>
+
+                    <span asp-validation-for="Location" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Expert" class="form-label">
+                        Uzmanlık Alanı <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-code-slash"></i>
+                        <input asp-for="Expert" class="form-control" />
+                    </div>
+
+                    <span asp-validation-for="Expert" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Email" class="form-label">
+                        E-posta <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-envelope"></i>
+                        <input asp-for="Email" type="email" class="form-control" />
+                    </div>
+
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">
+                        Hakkımda Açıklaması <span class="req">*</span>
+                    </label>
+
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <!-- İş Fırsatlarına Açık -->
+                <div class="col-12">
+                    <label class="form-label">İş Fırsatları Durumu</label>
+
+                    <div class="status-box">
+                        <div>
+                            <div class="fw-semibold" style="font-size: 0.86rem;">
+                                İş fırsatlarına açığım
+                            </div>
+
+                            <small class="text-secondary">
+                                Aktif olduğunda portfolyonuzda iş fırsatlarına açık olduğunuz görünür.
+                            </small>
+                        </div>
+
+                        <div class="form-check form-switch m-0">
+                            <input asp-for="OpenToWork"
+                                   class="form-check-input"
+                                   type="checkbox"
+                                   role="switch" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-card-footer">
+
+            <a asp-area="Admin"
+               asp-controller="About"
+               asp-action="AboutList"
+               class="btn btn-soft">
+                <i class="bi bi-arrow-left me-1"></i>
+                Vazgeç
+            </a>
+
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i>
+                Değişiklikleri Kaydet
+            </button>
+
+        </div>
+
+    </form>
+</div>

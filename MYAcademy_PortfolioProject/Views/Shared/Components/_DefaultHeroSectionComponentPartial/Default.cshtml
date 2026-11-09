@@ -1,0 +1,61 @@
+﻿<section id="home">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Left Content -->
+            <div class="col-lg-7 reveal-on-scroll">
+                <div class="hero-badge">
+                    <span>👋</span> @ViewBag.V1
+                </div>
+
+                <h1 class="hero-title">
+                    Merhaba, Ben <span class="hero-name-gradient">@ViewBag.V2</span>.
+                </h1>
+                <div class="typing-container" aria-live="polite">
+                    <span id="typedText"></span><span class="typing-cursor"></span>
+                </div>
+
+                <p class="hero-desc">
+                    @ViewBag.V3
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 align-items-center mb-4">
+                    <a href="#projects" class="btn-custom-primary">
+                        <i class="bi bi-grid-fill"></i>
+                        Projelerimi İncele
+                    </a>
+                    <a href="#contact" class="btn-custom-outline">
+                        <i class="bi bi-chat-dots"></i>
+                        Benimle İletişime Geç
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="d-flex align-items-center gap-2 pt-2">
+                    <span class="text-secondary small fw-medium me-2">Bağlantılar:</span>
+                    @{
+                        var socialMedias = ViewBag.SocialMedias as List<MYAcademy_PortfolioProject.Entities.SocialMedia>
+                        ?? new List<MYAcademy_PortfolioProject.Entities.SocialMedia>();
+                    }
+                    @foreach (var item in socialMedias)
+                    {
+                        <a href="@item.Url" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="@item.PlatformName">
+                            <i class="bi @item.Icon"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <!-- Right Visual with Portrait & Floating Badges -->
+            <div class="col-lg-5 reveal-on-scroll">
+                <div class="hero-image-wrapper">
+
+                    <!-- Main Portrait -->
+                    <div class="hero-image-frame">
+                        <img src="@ViewBag.V4" alt="Yaren Bakar - Bilgisayar Mühendisi" loading="lazy">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

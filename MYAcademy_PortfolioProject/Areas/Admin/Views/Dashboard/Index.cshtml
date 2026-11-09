@@ -1,0 +1,587 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    int total = ViewBag.messageCount ?? 0;
+    int readCount = ViewBag.messageReadByTrueCount ?? 0;
+    int unreadCount = ViewBag.messageReadByFalseCount ?? 0;
+    int readPercent = total > 0 ? (int)Math.Round(readCount * 100.0 / total) : 0;
+    int unreadPercent = total > 0 ? 100 - readPercent : 0;
+}
+
+<style>
+    .dash {
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        color: #1f2937;
+        padding: 8px 4px 24px;
+    }
+
+        .dash * {
+            box-sizing: border-box;
+        }
+
+    .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+        .dash-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .dash-header p {
+            margin: 4px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+    .dash-btn {
+        background: #4f46e5;
+        color: #fff;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .dash-btn:hover {
+            background: #4338ca;
+            color: #fff;
+        }
+
+    .dash-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .dash-stats {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-bottom: 20px;
+    }
+
+    .dash-main {
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        margin-bottom: 20px;
+    }
+
+    .dash-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+
+        .dash-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .dash-card h3 a {
+                font-size: 13px;
+                font-weight: 500;
+                color: #4f46e5;
+                text-decoration: none;
+            }
+
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .stat-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 2px 0 0;
+        line-height: 1.1;
+    }
+
+    .stat-sub {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 4px;
+    }
+
+    .bg-indigo {
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .bg-green {
+        background: #ecfdf5;
+        color: #059669;
+    }
+
+    .bg-amber {
+        background: #fffbeb;
+        color: #d97706;
+    }
+
+    .bg-sky {
+        background: #f0f9ff;
+        color: #0284c7;
+    }
+
+    .progress-row {
+        margin-bottom: 18px;
+    }
+
+        .progress-row:last-child {
+            margin-bottom: 0;
+        }
+
+    .progress-top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+        .progress-top span:last-child {
+            color: #6b7280;
+        }
+
+    .progress-bar {
+        height: 10px;
+        background: #f3f4f6;
+        border-radius: 99px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 99px;
+    }
+
+    .fill-green {
+        background: #10b981;
+    }
+
+    .fill-amber {
+        background: #f59e0b;
+    }
+
+    .donut-wrap {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .donut {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .donut-inner {
+        width: 96px;
+        height: 96px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .donut-inner strong {
+            font-size: 22px;
+        }
+
+        .donut-inner small {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+    .legend {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
+
+        .legend li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .legend i {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+    .dash-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+        .dash-table th {
+            text-align: left;
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+        .dash-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+
+        .dash-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dash-table tr:hover td {
+            background: #fafafa;
+        }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e0e7ff;
+        color: #4338ca;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 13px;
+        margin-right: 10px;
+    }
+
+    .name-cell {
+        display: flex;
+        align-items: center;
+    }
+
+    .muted {
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 99px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .badge-read {
+        background: #ecfdf5;
+        color: #047857;
+    }
+
+    .badge-unread {
+        background: #fef3c7;
+        color: #b45309;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+    }
+
+    .activity {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .activity li {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 14px;
+        }
+
+            .activity li:last-child {
+                border-bottom: none;
+            }
+
+    .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-top: 6px;
+        flex-shrink: 0;
+    }
+
+    .activity .time {
+        font-size: 12px;
+        color: #9ca3af;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .quick-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+        .quick-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            color: #1f2937;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .quick-links a:hover {
+                border-color: #4f46e5;
+                background: #f5f7ff;
+            }
+</style>
+
+<div class="dash">
+
+    <div class="dash-header">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Hoş geldiniz! Portfolyo sitenizin genel durumu aşağıda.</p>
+        </div>
+        <a href="~/files/YarenBakar_CV.pdf"
+           download="Yaren_Bakar_CV.pdf"
+           class="btn btn-primary">
+            <i class="fas fa-download me-2"></i>
+            CV İndir
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">Profil Doluluk Oranı</h5>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted">Profil tamamlanma durumu</span>
+
+                <strong class="text-primary">
+                    %@ViewBag.ProfileCompletion
+                </strong>
+            </div>
+
+            <div class="progress" style="height: 12px;">
+                <div class="progress-bar bg-success"
+                     role="progressbar"
+                     style="width: @(ViewBag.ProfileCompletion)%;">
+                </div>
+            </div>
+
+            <small class="text-muted d-block mt-2">
+                Profil bilgilerini tamamlayarak portfolyonu geliştirebilirsin.
+            </small>
+
+        </div>
+    </div>
+
+    <!-- İstatistik kartları -->
+    <div class="dash-grid dash-stats">
+        <div class="dash-card stat">
+            <div class="stat-icon bg-indigo">✉</div>
+            <div>
+                <p class="stat-label">Toplam Mesaj</p>
+                <p class="stat-value">@total</p>
+                <div class="stat-sub">Tüm zamanlar</div>
+            </div>
+        </div>
+        <div class="dash-card stat">
+            <div class="stat-icon bg-green">✔</div>
+            <div>
+                <p class="stat-label">Okunmuş Mesaj</p>
+                <p class="stat-value">@readCount</p>
+                <div class="stat-sub">%@readPercent oranında</div>
+            </div>
+        </div>
+        <div class="dash-card stat">
+            <div class="stat-icon bg-amber">●</div>
+            <div>
+                <p class="stat-label">Okunmamış Mesaj</p>
+                <p class="stat-value">@unreadCount</p>
+                <div class="stat-sub">%@unreadPercent oranında</div>
+            </div>
+        </div>
+        <div class="dash-card stat">
+            <div class="stat-icon bg-sky">👁</div>
+            <div>
+                <p class="stat-label">Projelerim</p>
+                <p class="stat-value">@ViewBag.ProjectCount</p>
+  
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesaj durumu + Grafik -->
+    <div class="dash-grid dash-main">
+        <div class="dash-card">
+            <h3>Mesaj Durumu</h3>
+            <div class="progress-row">
+                <div class="progress-top"><span>Okunmuş</span><span>@readCount / @total</span></div>
+                <div class="progress-bar"><div class="progress-fill fill-green" style="width:@(readPercent)%"></div></div>
+            </div>
+            <div class="progress-row">
+                <div class="progress-top"><span>Okunmamış</span><span>@unreadCount / @total</span></div>
+                <div class="progress-bar"><div class="progress-fill fill-amber" style="width:@(unreadPercent)%"></div></div>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <h3>Okunma Oranı</h3>
+            <div class="donut-wrap">
+                <div class="donut" style="background: conic-gradient(#10b981 0 @(readPercent)%, #f59e0b @(readPercent)% 100%);">
+                    <div class="donut-inner">
+                        <strong>%@readPercent</strong>
+                        <small>okundu</small>
+                    </div>
+                </div>
+                <ul class="legend">
+                    <li><i style="background:#10b981"></i> Okunmuş (@readCount)</li>
+                    <li><i style="background:#f59e0b"></i> Okunmamış (@unreadCount)</li>
+                    <li><i style="background:#4f46e5"></i> Toplam (@total)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hızlı mesaj listesi (statik) -->
+    <div class="dash-card" style="margin-bottom:20px;">
+        <h3>Son Mesajlar <a href="/Admin/Message/MessageList">Tümünü gör →</a></h3>
+        <div class="table-scroll">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Gönderen</th>
+                        <th>Konu</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                    @foreach (var item in ViewBag.Messages)
+                    {
+                        <tr>
+                            <td>
+                                <div class="name-cell">
+                                    <span class="avatar">
+                                        @item.NameSurname.Substring(0, 1).ToUpper()
+                                    </span>
+                                    <div>
+                                        @item.NameSurname
+                                        <div class="muted">@item.Email</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>@item.Subject</td>
+
+                            <td class="muted">
+                                @item.SendDate.ToString("dd.MM.yyyy")
+                            </td>
+
+                            <td>
+                                @if (item.IsRead)
+                                {
+                                    <span class="badge badge-read">Okundu</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-unread">Okunmadı</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="dash-card">
+        <h3 class="mb-3">
+            Son Aktiviteler
+            <span class="badge bg-light text-primary">Son 5 proje</span>
+        </h3>
+
+        <ul class="list-group list-group-flush">
+
+            @foreach (var item in ViewBag.Projects)
+            {
+                <li class="list-group-item d-flex align-items-center gap-3 py-3">
+
+                    <img src="@item.CoverImageUrl"
+                         alt="@item.Title"
+                         width="55"
+                         height="55"
+                         class="rounded-3"
+                         style="object-fit: cover;" />
+
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold">@item.Title</div>
+                        <small class="text-muted">Yeni proje eklendi</small>
+                    </div>
+
+                    <span class="badge bg-success bg-opacity-10 text-success">
+                        Proje
+                    </span>
+
+                </li>
+            }
+
+        </ul>
+    </div>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+﻿@model MYAcademy_PortfolioProject.Entities.SkillCategory
+
+@{
+    ViewData["Title"] = "Yeni Yetenek Kategorisi Ekle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Yeni Yetenek Kategorisi</h3>
+        <p class="text-muted mb-0">Yeteneklerinizi gruplayacağınız yeni bir kategori oluşturun.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Kategori Adı</label>
+                        <input asp-for="CategoryName" class="form-control" placeholder="Örn: Backend Development" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">İkon</label>
+                        <input asp-for="Icon" class="form-control" placeholder="Örn: bi-code-slash" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label small fw-semibold">Açıklama</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"
+                                  placeholder="Kategori hakkında kısa bir açıklama"></textarea>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <a href="/Admin/SkillCategory/Index" class="btn btn-outline-secondary me-1">
+                            <i class="bi bi-arrow-left me-1"></i> Geri Dön
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-plus-circle me-1"></i> Kaydet
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

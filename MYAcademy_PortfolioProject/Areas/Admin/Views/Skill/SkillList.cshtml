@@ -1,0 +1,104 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.Skill>
+
+@{
+    ViewData["Title"] = "Yetenek Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Yetenek & Teknoloji Yönetimi</h3>
+        <p class="text-muted mb-0">Teknik yeteneklerinizi ve uzmanlık alanlarınızı buradan yönetebilirsiniz.</p>
+        <div class="text-end">
+            <a href="/Admin/SkillCategory/SkillCategoryList" class="btn btn-outline-info">
+                <i class="bi bi-tags me-1"></i> Yetenek Kategorileri
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-bold mb-0 text-dark">
+                <i class="bi bi-layers me-1"></i> Yeteneklerim
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4" style="width: 70px;">#</th>
+                            <th>Yetenek / Teknoloji</th>
+                            <th>Kategorisi</th>
+                            <th class="text-end pe-4">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td class="ps-4 fw-semibold text-muted">@count</td>
+                                <td class="fw-bold text-secondary">@item.SkillName</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border px-2 py-1">
+                                        @(item.SkillCategory != null ? item.SkillCategory.CategoryName : "Kategori Yok")
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a href="/Admin/Skill/UpdateSkill/@item.SkillID" class="btn btn-sm btn-outline-primary px-3 me-1">
+                                        <i class="bi bi-pencil-square me-1"></i> Düzenle
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger px-3"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-@item.SkillID">
+                                        <i class="bi bi-trash me-1"></i> Sil
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @foreach (var item in Model)
+            {
+                <div class="modal fade" id="deleteModal-@item.SkillID" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Silme Onayı</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <strong>@item.SkillName</strong> yeteneğini silmek istediğinize emin misiniz?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                                <a href="/Admin/Skill/DeleteSkill/@item.SkillID" class="btn btn-danger">Evet, Sil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-info-circle display-6 d-block mb-2"></i>
+                    Henüz eklenmiş bir yetenek bulunmuyor. Aşağıdaki butondan ilk yeteneğinizi ekleyebilirsiniz.
+                </div>
+            }
+        </div>
+    </div>
+
+    <br />
+    <a href="/Admin/Skill/CreateSkill" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i> Yeni Yetenek Ekle
+    </a>
+</div>

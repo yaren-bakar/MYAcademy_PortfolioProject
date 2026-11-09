@@ -1,0 +1,34 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.Education>
+
+<section id="education" style="background-color: var(--bg-secondary);">
+    <div class="container">
+        <div class="text-center mb-5 reveal-on-scroll">
+            <span class="section-eyebrow">AKADEMİK YOLCULUĞUM</span>
+            <h2 class="section-title">Eğitim Hayatım</h2>
+            <p class="section-subtitle">Yazılım dünyasına uzanan yolculuğumun akademik temelleri.</p>
+        </div>
+
+        <div class="timeline-container">
+            @foreach (var item in Model)
+            {
+                <div class="timeline-item row align-items-center g-4 reveal-on-scroll">
+                    <div class="col-lg-6 timeline-left order-2 order-lg-1">
+                        <div class="timeline-content-card">
+                            <span class="badge-year bg-icon-purple mb-2">
+                                <i class="bi bi-calendar3"></i> @item.Duration
+                            </span>
+                            <h4 class="fs-5 fw-bold mb-1">@item.Title</h4>
+                            <div class="text-primary fw-semibold small mb-2">@item.SubTitle</div>
+                            <p class="text-secondary small mb-3">
+                                @item.Description
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-marker">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

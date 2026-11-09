@@ -1,34 +1,115 @@
 ﻿@model List<MYAcademy_PortfolioProject.Entities.Message>
 
 @{
-    ViewData["Title"] = "MessageList";
+    ViewData["Title"] = "Mesaj Yönetimi";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
 
-<div class="container">
-    <br />
-    <table class="table table-bordered">
-        <tr>
-            <th>#</th>
-            <th>Gönderici</th>
-            <th>Email</th>
-            <th>Konu</th>
-            <th>Tarih</th>
-            <th>Mesajı Aç</th>
-            <th>Sil</th>
-        </tr>
-        @foreach(var item in Model)
-        {
-            <tr>
-                <th>@item.MessageID</th>
-                <th>@item.NameSurname</th>
-                <th>@item.Email</th>
-                <th>@item.Subject</th>
-                <th>@item.SendDate.ToString("dd.MMM.yyyy")</th>
-                <th><a class="btn btn-primary" href="~/Admin/Message/MessageDetail/@item.MessageID">Mesaj Aç</a></th>
-                <th><a class="btn btn-danger" href="~/Admin/Message/DeleteMessage/@item.MessageID">Sil</a></th>
-            </tr>
-        }
-      
-    </table>
-</div>
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Mesaj Yönetimi</h3>
+        <p class="text-muted mb-0">
+            Gelen mesajlarınızı buradan yönetebilirsiniz.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white border-0 py-3">
+            <h5 class="fw-bold mb-0">Mesajlarım</h5>
+        </div>
+
+        <div class="container">
+            <br />
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Gönderici</th>
+                    <th>Email</th>
+                    <th>Konu</th>
+                    <th>Tarih</th>
+                    <th>Mesajı Aç</th>
+                    <th>Sil</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MessageID</td>
+                        <td>@item.NameSurname</td>
+                        <td>@item.Email</td>
+                        <td>@item.Subject</td>
+                        <td>@item.SendDate.ToString("dd.MMM.yyyy")</td>
+                        <td>
+                            <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#detailModal-@item.MessageID">
+                                Mesaj Aç
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal-@item.MessageID">
+                                Sil
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @foreach (var item in Model)
+            {
+                <div class="modal fade" id="detailModal-@item.MessageID" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Mesaj Detayı</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Gönderen:</strong> @item.NameSurname</p>
+                                <p><strong>E-posta:</strong> @item.Email</p>
+                                <p><strong>Konu:</strong> @item.Subject</p>
+                                <p><strong>Mesaj:</strong></p>
+                                <div class="form-control bg-light" style="white-space: pre-wrap;">@item.MessageDetail</div>
+                            </div>
+                            <div class="modal-footer">
+                                @if (!item.IsRead)
+                                {
+                                    <form method="post" action="/Admin/Message/MarkAsRead/@item.MessageID" class="me-auto">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-check2-circle me-1"></i> Okundu Olarak İşaretle
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success me-auto">Okundu</span>
+                                }
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="deleteModal-@item.MessageID" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Silme Onayı</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                Bu mesajı silmek istediğinize emin misiniz?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                                <a href="~/Admin/Message/DeleteMessage/@item.MessageID" class="btn btn-danger">Evet, Sil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>

@@ -1,0 +1,97 @@
+﻿@model List<MYAcademy_PortfolioProject.Entities.About>
+
+@{
+    ViewData["Title"] = "Hakkımda Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Hakkımda Yönetimi</h3>
+        <p class="text-muted mb-0">
+            Kişisel bilgilerinizi ve hakkımda açıklamanızı buradan yönetebilirsiniz.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white border-0 py-3">
+            <h5 class="fw-bold mb-0">Kişisel Bilgilerim</h5>
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="row g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6">
+                        <label class="about-label fw-bold">Ad Soyad</label>
+                        <p class="about-value">@item.NameSurname</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="about-label fw-bold">Meslek</label>
+                        <p class="about-value">@item.JobTitle</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="about-label fw-bold">Konum</label>
+                        <p class="about-value">
+                            <i class="bi bi-geo-alt me-1"></i>
+                            @item.Location
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="about-label fw-bold">Uzmanlık Alanı</label>
+                        <p class="about-value">
+                            <i class="bi bi-code-slash me-1"></i>
+                            @item.Expert
+                        </p>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="about-label fw-bold">E-posta</label>
+                        <p class="about-value">
+                            <i class="bi bi-envelope me-1"></i>
+                            @item.Email
+                        </p>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="about-label fw-bold">Hakkımda Açıklaması</label>
+                        <p class="about-description">@item.Description</p>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                            @if (item.OpenToWork == true)
+                            {
+                            <span class="badge bg-success-subtle text-success p-2">
+                                <i class="bi bi-check-circle-fill me-1"></i>
+                               İş Fırsatlarına Açık
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger p-2">
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    İş Fırsatlarına Kapalı
+                                </span>
+                            }
+
+                            <a href="/Admin/About/UpdateAbout/@item.AboutID" class="btn btn-primary px-4">
+                                <i class="bi bi-pencil-square me-1"></i>
+                                Bilgileri Güncelle
+                            </a>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
