@@ -14,10 +14,19 @@ namespace MYAcademy_PortfolioProject.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult MessageList()
+        public IActionResult MessageList(string search)
         {
-            var values = _context.Messages.ToList();
-            return View(values);
+            var values = _context.Messages.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                values = values.Where(x =>
+                    x.NameSurname.Contains(search) ||
+                    x.Email.Contains(search) ||
+                    x.Subject.Contains(search));
+            }
+
+            return View(values.ToList());
         }
 
 

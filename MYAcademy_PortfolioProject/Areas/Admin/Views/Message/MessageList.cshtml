@@ -14,11 +14,34 @@
         </p>
     </div>
 
+
     <div class="card border-0 shadow-sm">
 
         <div class="card-header bg-white border-0 py-3">
             <h5 class="fw-bold mb-0">Mesajlarım</h5>
         </div>
+        <form method="get" asp-area="Admin" asp-controller="Message" asp-action="MessageList">
+            <div class="input-group mb-3" style="max-width: 400px;">
+
+                <input type="text"
+                       name="search"
+                       class="form-control"
+                       placeholder="Mesajlarda ara..."
+                       value="@Context.Request.Query["search"]" />
+
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="bi bi-search"></i> Ara
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="Message"
+                   asp-action="MessageList"
+                   class="btn btn-secondary">
+                    Temizle
+                </a>
+
+            </div>
+        </form>
 
         <div class="container">
             <br />
@@ -41,7 +64,7 @@
                         <td>@item.Subject</td>
                         <td>@item.SendDate.ToString("dd.MMM.yyyy")</td>
                         <td>
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-success"
                                     data-bs-toggle="modal"
                                     data-bs-target="#detailModal-@item.MessageID">
                                 Mesaj Aç
