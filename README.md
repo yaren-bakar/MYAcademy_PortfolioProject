@@ -61,7 +61,7 @@ Ziyaretçiler portfolyo sitesinde profil, eğitim, deneyim, proje ve iletişim b
 ![Deneyim](MYAcademy_PortfolioProject/wwwroot/screenshots/Experience.png)
 
 #### Projeler
-![Projeler](MYAcademy_PortfolioProject/wwwroot/screenshots/Project.png)
+
 
 #### İletişim
 ![İletişim](MYAcademy_PortfolioProject/wwwroot/screenshots/Contact.png)
