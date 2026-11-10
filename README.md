@@ -1,6 +1,6 @@
 # MYAcademy Portfolio Project
 
-ASP.NET Core MVC ile geliştirilmiş, veritabanı destekli ve yönetim panelinden tamamen yönetilebilen kişisel portfolyo web uygulaması. Murat Yücedağ eğitmenliğinde, M&Y Yazılım Eğitim Akademi 12. Dönem Akşam Grubu 1. Proje Case Çalışması kapsamında hazırlanmıştır.
+ASP.NET Core MVC ile geliştirilmiş, veritabanı destekli ve yönetim panelinden tamamen yönetilebilen kişisel portfolyo web uygulaması.@muratyucedag eğitmenliğinde, M&Y Yazılım Eğitim Akademi 12. Dönem Akşam Grubu 1. Proje Case Çalışması kapsamında hazırlanmıştır.
 
 Ziyaretçiler portfolyo sitesinde profil, eğitim, deneyim, proje ve iletişim bilgilerini görür. Site sahibi ise Admin paneli üzerinden bu içeriklerin tamamını ekler, günceller ve siler. Admin panelinde yapılan her değişiklik ilgili sitede anında görünür.
 
